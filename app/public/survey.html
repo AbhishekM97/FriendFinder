@@ -138,6 +138,7 @@
 $("#submitForm").on("click",function(event){
     event.preventDefault();
 
+    //friend is a variable with attribute values pulled from the survey.
     var friend = {
         name: $("#name").val(),
         photo: $("#photo").val(),
@@ -148,22 +149,24 @@ $("#submitForm").on("click",function(event){
         friend.score.push($("#q"+i).val());
     }
 
-    console.log(friend);
+    //console.log(friend);
 
     $.post("/api/friends", friend, function(data){
-            if(data){
+        console.log("Your most compatiable friend is " + data.name);
+        console.log("Here is there information \n");
+        console.log(data);
+        $("#name").val("");
+        $("#photo").val("");
+        for(i = 1; i<11; i++){
+            $("#q"+i).val("1");
+        }
+            /*if(data){
+                //[console.log(data);
                 alert("Your data was recieved");
-            }
-            //program to show compatability
+            }*/
+    
+            //TODO program to show compatability
     });
 });
 
-function runFriendData(){
-    $.ajax({url: "/api/friends", method: "GET"})
-    .then(function(friendsData){
-        console.log(friendsData);
-        console.log("-------------------");
-
-    });
-}
 </script>
